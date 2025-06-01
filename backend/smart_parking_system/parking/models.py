@@ -26,6 +26,7 @@ class ParkingResevation(models.Model):
     name = models.CharField(max_length=500)
     parking_lot_id = models.ForeignKey(ParkingLot,on_delete=models.PROTECT,related_name='parking_lot')
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name='reserve_user')
-    reseve_datetime = models.DateTimeField()
+    start_datetime = models.DateTimeField(null=True)
+    end_datetime = models.DateField(null=True)
     state = models.CharField(choices=STATE_TYPE,default='draft')
     
