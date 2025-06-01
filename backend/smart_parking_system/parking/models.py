@@ -5,17 +5,20 @@ from django.conf import settings
 class ParkingLocation(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=500)
-    total_slots = models.IntegerField()
-    reserved_slots = models.IntegerField()
+    total_slots = models.IntegerField(default=0)
 
     @property
     def available_slots(self):
         return self.total_slots - self.reserved_slots
     
-
-class ParkingLot(models.Model):
-    name = models.CharField(max_length=500)
-    parking_location_id = models.ForeignKey(ParkingLocation,on_delete=models.PROTECT,related_name='parking_lots')
+    @property
+    def reservation_count(self):
+        return self.reservations.count()
+    
+    @property
+    def reserved_slots(self):
+        return self.reservations.filter(state='approve').count()
+    
 
 
 class ParkingResevation(models.Model):
@@ -24,8 +27,8 @@ class ParkingResevation(models.Model):
     ]
 
     name = models.CharField(max_length=500)
-    parking_lot_id = models.ForeignKey(ParkingLot,on_delete=models.PROTECT,related_name='parking_lot')
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name='reserve_user')
+    parking_location_id = models.ForeignKey(ParkingLocation,on_delete=models.PROTECT,related_name='reservations',null=True)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name='reservations')
     start_datetime = models.DateTimeField(null=True)
     end_datetime = models.DateField(null=True)
     state = models.CharField(choices=STATE_TYPE,default='draft')
