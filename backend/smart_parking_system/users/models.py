@@ -9,7 +9,7 @@ class User(AbstractUser):
 
 # Create your models here.
 class UserProfile(models.Model):
-    user_id = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name="profile")
     name = models.CharField()
     birthdate = models.DateField(auto_now_add=True)
     email = models.EmailField()
