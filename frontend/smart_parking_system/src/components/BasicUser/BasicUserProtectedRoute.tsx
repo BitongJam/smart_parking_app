@@ -44,21 +44,15 @@ function BasicUserProtectedRoute({ children }: BasicUserProtectedRouteProps) {
     console.log(valid);
   }, [token]);
 
-    // if (!token) {
-    //   return <Navigate to="/login" replace />;
-    // }
+    if (!token) {
+      return <Navigate to="/login" replace />;
+    }
 
-    // if (valid === null || isAdmin === null) {
-    //   return <div>Loading...</div>;
-    // }
 
-    // if (valid === false) {
-    //   return <Navigate to="/login" replace />;
-    // }
+    if (valid === false) {
+      return <Navigate to="/login" replace />;
+    }
 
-    // if (isAdmin === true) {
-    //   return <Navigate to="/dashboard" replace />;
-    // }
 
   return <>{children}</>;
 }
