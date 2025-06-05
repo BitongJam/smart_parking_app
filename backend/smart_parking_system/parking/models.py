@@ -23,7 +23,7 @@ class ParkingLocation(models.Model):
 
 class ParkingResevation(models.Model):
     STATE_TYPE = [
-        ('draft','Draft'),('cancel','Cancelled'),('approve','Approved'),('close','Closed')
+        ('draft','Draft'),('cancel','Cancelled'),('active','Active'),('expire','Expired')
     ]
 
     name = models.CharField(max_length=500)
