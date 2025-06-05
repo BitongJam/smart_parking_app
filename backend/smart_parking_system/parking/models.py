@@ -17,19 +17,19 @@ class ParkingLocation(models.Model):
     
     @property
     def reserved_slots(self):
-        return self.reservations.filter(state='approve').count()
+        return self.reservations.filter(state='active').count()
     
 
 
 class ParkingResevation(models.Model):
     STATE_TYPE = [
-        ('draft','Draft'),('cancel','Cancelled'),('approve','Approved'),('close','Closed')
+        ('draft','Draft'),('cancel','Cancelled'),('active','Active'),('expire','Expired')
     ]
 
     name = models.CharField(max_length=500)
     parking_location_id = models.ForeignKey(ParkingLocation,on_delete=models.PROTECT,related_name='reservations',null=True)
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name='reservations')
     start_datetime = models.DateTimeField(null=True)
-    end_datetime = models.DateField(null=True)
+    end_datetime = models.DateTimeField(null=True)
     state = models.CharField(choices=STATE_TYPE,default='draft')
     

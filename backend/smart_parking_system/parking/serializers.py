@@ -2,6 +2,9 @@ from rest_framework import serializers
 from parking.models import ParkingLocation,ParkingResevation
 
 class ParkingResevationSerializer(serializers.ModelSerializer):
+    parking_location_name = serializers.CharField(source = 'parking_location_id.name',read_only=True)
+    user_name = serializers.CharField(source ='user_id.name',read_only=True)
+
     class Meta:
         model = ParkingResevation
         fields = '__all__'
