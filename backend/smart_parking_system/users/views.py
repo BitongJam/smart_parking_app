@@ -89,4 +89,8 @@ def update_user_password(request,user_id):
     return Response({'message': f'User {user.username} Details Updated Successfully'}, status=200)
 
 
-# Create your views here.
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import ModifiedTokenObtainPairSerializer
+
+class ModifiedTokenObtainPairView(TokenObtainPairView):
+    serializer_class = ModifiedTokenObtainPairSerializer
