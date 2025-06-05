@@ -52,6 +52,8 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
 
             <Route path="user-management" element={ <UserManagementList/>}/>
+
+            <Route path="user-profile" element={<UserProfile/>}/>
           </Route>
           {/* end -- Admin Routes */}
 
@@ -65,6 +67,7 @@ function App() {
               </BasicUserProtectedRoute>
             }
           >
+            <Route path="user-profile" element={<UserProfile/>}/>
             <Route path="dashboard" element={<BasicUserDashboard />} />
           </Route>
             {/* End -- Client user Routes */}
