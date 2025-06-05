@@ -67,7 +67,59 @@ function ParkingLocationLotForm() {
       // When Successfully Delete auto navigate to the parking location list
       navigate("/parking-location");
     } catch (error) {
-      console.error("Failed to update location: " + error);
+      if (axios.isAxiosError(error) && error.response) {
+        alert(error.response.data.error); // show backend error message
+      } else {
+        alert("Unexpected error occurred");
+      }
+    }
+  };
+
+  const cancelReservation = async (reservation_id: number) => {
+    try {
+      await axios.patch(
+        `${BASE_URL}/api/parking/reservation/${reservation_id}/`,
+        {
+          state: "cancel",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      console.info("Reservation Cancel");
+      // When Successfully Delete auto navigate to the parking location list
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error);
+        alert(error); // show backend error message
+      } else {
+        alert("Unexpected error occurred");
+      }
+    }
+  };
+
+  const approveReservation = async (reservation_id: number) => {
+    try {
+      await axios.patch(
+        `${BASE_URL}/api/parking/reservation/${reservation_id}/`,
+        {
+          state: "active",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      console.info("Reservation Cancel");
+      // When Successfully Delete auto navigate to the parking location list
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(error);
+        alert(error); // show backend error message
+      } else {
+        alert("Unexpected error occurred");
+      }
     }
   };
 
@@ -217,7 +269,23 @@ function ParkingLocationLotForm() {
                 <td>{loc.end_datetime}</td>
                 <td>{loc.state}</td>
                 <td>
-                  <button className="btn btn-danger btn-sm">Cancel</button>
+                  {loc.state === "draft" && (
+                    <button
+                      className="btn btn-success btn-sm me-2"
+                      onClick={() => approveReservation(loc.id)}
+                    >
+                      Approve
+                    </button>
+                  )}
+
+                  {(loc.state === "draft" || loc.state === "active") && (
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => cancelReservation(loc.id)}
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
