@@ -12,6 +12,8 @@ import BasicUserDashboard from "./components/BasicUser/BasicUserDashboard";
 import BasicUserProtectedRoute from "./components/BasicUser/BasicUserProtectedRoute";
 import LoginProtectedRoute from "./components/LoginProtectedRoute";
 import UserManagementList from "./components/UserManagement/UserManagemetList";
+import BasicUserNavbar from "./components/BasicUser/BasicUserNavbar";
+import UserProfile from "./components/UserManagement/UserProfile";
 
 function App() {
   return (
@@ -58,6 +60,7 @@ function App() {
             path="/client"
             element={
               <BasicUserProtectedRoute>
+                <BasicUserNavbar/>
                 <MainLayout />
               </BasicUserProtectedRoute>
             }
