@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
+#change the content cors_allowed_origin url of the front end to allow connect
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5174"
 ]
