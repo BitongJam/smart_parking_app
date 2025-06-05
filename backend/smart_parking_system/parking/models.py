@@ -17,7 +17,7 @@ class ParkingLocation(models.Model):
     
     @property
     def reserved_slots(self):
-        return self.reservations.filter(state='approve').count()
+        return self.reservations.filter(state='active').count()
     
 
 
