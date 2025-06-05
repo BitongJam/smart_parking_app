@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 function Navbar() {
+  const navigate = useNavigate();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/dashboard">
             Smart Parking
           </a>
           <button
@@ -37,6 +40,29 @@ function Navbar() {
                 <a href="/user-management" className="nav-link">
                   User Management
                 </a>
+              </li>
+            </ul>
+          </div>
+          <div className="dropdown dropstart">
+            <button
+              className="btn btn-light dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              User
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <button className="dropdown-item" onClick={()=> navigate("/user-profile")}>User Profile </button>
+              </li>
+              <li>
+                <button className="dropdown-item" onClick={()=>{
+                  // remove active token to logout then navligate to login 
+                  alert("User Logging Out");
+                  localStorage.removeItem("token")
+                  navigate("/login")
+                }}>Logout</button>
               </li>
             </ul>
           </div>
