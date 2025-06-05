@@ -9,7 +9,7 @@ interface ParkingLocationReservation {
   user_id: number;
   start_datetime: string;
   end_datetime: string;
-  state: "draft" | "cancel" | "approve";
+  state: "draft" | "cancel" | "active";
 }
 
 interface ParkingLocation {
