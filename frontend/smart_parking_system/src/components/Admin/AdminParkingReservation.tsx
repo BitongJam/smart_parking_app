@@ -49,7 +49,7 @@ function AdminParkingReservation() {
       await axios.post(
         `${BASE_URL}/api/notification/notification/`,
         {
-          message: "Resevation Cancel",
+          message: "Reservation Cancel",
           user_id: user_id,
           alert_type: "danger",
         },
