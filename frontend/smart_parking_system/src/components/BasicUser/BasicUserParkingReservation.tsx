@@ -50,38 +50,43 @@ function BasicUserParkingReservation() {
   const auth_header = { Authorization: `Bearer ${token}` };
   //Get the All Parking Location Available for Reservation
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/parking/parking-location/`, {
-        headers: auth_header,
-      })
-      .then((response) => {
-        setParkingLocation(response.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const fetchData = () => {
+      axios
+        .get(`${BASE_URL}/api/parking/parking-location/`, {
+          headers: auth_header,
+        })
+        .then((response) => {
+          setParkingLocation(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
 
-    //GEt The Active Reservations by the users
-    axios
-      .get(`${BASE_URL}/api/parking/reservation/user_active_reservations`, {
-        headers: auth_header,
-      })
-      .then((response) => {
-        setActiveUserReservation(response.data);
-      });
+      //GEt The Active Reservations by the users
+      axios
+        .get(`${BASE_URL}/api/parking/reservation/user_active_reservations`, {
+          headers: auth_header,
+        })
+        .then((response) => {
+          setActiveUserReservation(response.data);
+        });
 
-    //Get the  Reservation History of the User
-    axios
-      .get(`${BASE_URL}/api/parking/reservation/user_reservation_history`, {
-        headers: auth_header,
-      })
-      .then((response) => {
-        setReservationHist(response.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  },[]);
+      //Get the  Reservation History of the User
+      axios
+        .get(`${BASE_URL}/api/parking/reservation/user_reservation_history`, {
+          headers: auth_header,
+        })
+        .then((response) => {
+          setReservationHist(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -146,12 +151,30 @@ function BasicUserParkingReservation() {
                 </tr>
               </thead>
               <tbody>
-                {activeUserReservation.map((history)=>(
+                {activeUserReservation.map((history) => (
                   <tr key={history.id}>
                     <td>{history.parking_location_name}</td>
                     <td>{history.start_datetime}</td>
                     <td>{history.end_datetime}</td>
-                    <td>{history.state}</td>
+                    <td>
+                      {history.state == "active" ? (
+                        <span className="badge rounded-pill bg-success">
+                          {history.state}
+                        </span>
+                      ) : history.state == "cancel" ? (
+                        <span className="badge rounded-pill bg-danger">
+                          {history.state}
+                        </span>
+                      ) : history.state == "draft" ? (
+                        <span className="badge rounded-pill bg-info">
+                          {history.state}
+                        </span>
+                      ) : (
+                        <span className="badge rounded-pill bg-secondary">
+                          {history.state}
+                        </span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -176,7 +199,25 @@ function BasicUserParkingReservation() {
                     <td>{history.parking_location_name}</td>
                     <td>{history.start_datetime}</td>
                     <td>{history.end_datetime}</td>
-                    <td>{history.state}</td>
+                    <td>
+                      {history.state == "active" ? (
+                        <span className="badge rounded-pill bg-success">
+                          {history.state}
+                        </span>
+                      ) : history.state == "cancel" ? (
+                        <span className="badge rounded-pill bg-danger">
+                          {history.state}
+                        </span>
+                      ) : history.state == "draft" ? (
+                        <span className="badge rounded-pill bg-info">
+                          {history.state}
+                        </span>
+                      ) : (
+                        <span className="badge rounded-pill bg-secondary">
+                          {history.state}
+                        </span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
