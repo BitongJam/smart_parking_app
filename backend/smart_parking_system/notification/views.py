@@ -15,6 +15,6 @@ class NotificationViewSet(viewsets.ModelViewSet):
     @action(detail=False,methods=['get'])
     def user_notification_list(self,request):
         user = request.user
-        notifications = self.queryset.filter(user_id = user.id)
+        notifications = self.queryset.filter(user_id = user.id,is_read=False)
         serilizer = self.get_serializer(notifications,many=True)
         return Response(serilizer.data)
