@@ -27,7 +27,7 @@ This project enables users to:
 **Others:**
 - Axios (HTTP client)
 - Django CORS Headers
-- JWT Authentication (or Session-based)
+- JWT Authentication
 
 ---
 
