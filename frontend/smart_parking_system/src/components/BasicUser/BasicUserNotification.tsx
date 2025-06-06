@@ -30,17 +30,29 @@ function BasicUserNotification() {
         setNotifications(res.data);
       });
   },[]);
+
+  const handleNotificationClose = async (id:number)=>{
+    await axios.patch(`${BASE_URL}/api/notification/notification/${id}/`,{
+      is_read:true
+    }).catch((err)=>{
+       console.error(err);
+    })
+  }
   return (
     <>
       <div className="container">
         {notifications.map((notif) => (
           <div
-            className={`alert alert-${notif.alert_type}`}
+            className={`alert alert-${notif.alert_type} alert-dismissible fade show`}
             role="alert"
             key={notif.id}
           >
-            {notif.message}
+            <strong>{notif.message}</strong>
+            
+              <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={()=>handleNotificationClose(notif.id)} aria-label="Close"></button>
+
           </div>
+          
         ))}
       </div>
     </>
