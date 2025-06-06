@@ -97,7 +97,8 @@ function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-
+              <div className=""><a href="/register-user" >Create Account</a></div>
+              
               <button
                 type="submit"
                 className="btn btn-primary"
