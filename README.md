@@ -45,6 +45,7 @@ This project enables users to:
 - pip install -r requirements.txt
 - python manage.py migrate
 - python manage.py createsuperuser
+- then update the superuser is_admin = True
 - python manage.py runserver
 
 
