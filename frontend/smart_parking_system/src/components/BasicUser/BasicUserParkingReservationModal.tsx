@@ -32,6 +32,7 @@ function BasicUserParkingReservationModal({
         },
         { headers: auth_header }
       );
+      window.location.reload();
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         console.error("Backend Error Response:", err.response.data);
