@@ -71,7 +71,7 @@ function AdminParkingReservation() {
     }
   };
 
-  const approveReservation = async (reservation_id: number) => {
+  const approveReservation = async (reservation_id: number, user_id: number) => {
     try {
       await axios.patch(
         `${BASE_URL}/api/parking/reservation/${reservation_id}/`,
@@ -83,7 +83,22 @@ function AdminParkingReservation() {
         }
       );
 
-      console.info("Reservation Cancel");
+      // Create Notification for cancelation
+      await axios.post(
+        `${BASE_URL}/api/notification/notification/`,
+        {
+          message: "Reservation Approve",
+          user_id: user_id,
+          alert_type: "success",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+
+      console.info("Reservation Approve");
+      window.location.reload();
       // When Successfully Delete auto navigate to the parking location list
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
@@ -119,7 +134,7 @@ function AdminParkingReservation() {
                   {reservation.state === "draft" && (
                     <button
                       className="btn btn-success btn-sm me-2"
-                      onClick={() => approveReservation(reservation.id)}
+                      onClick={() => approveReservation(reservation.id,reservation.user_id)}
                     >
                       Approve
                     </button>
