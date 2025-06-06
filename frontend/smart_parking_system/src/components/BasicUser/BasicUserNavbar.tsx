@@ -32,7 +32,7 @@ function BasicUserNavbar() {
                 <a
                   className="nav-link"
                   aria-current="page"
-                  href="#"
+                  href="/client/reservation"
                 >
                   Reservation
                 </a>
