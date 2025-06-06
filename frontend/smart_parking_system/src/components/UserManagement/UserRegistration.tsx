@@ -34,7 +34,7 @@ function UserRegistration() {
       if (!response) {
         setError("Failed to Register User: " + response);
       } else {
-        alert("working");
+        alert("Sign Up Successfully");
         navigate("/login");
       }
     } catch (error: unknown) {
