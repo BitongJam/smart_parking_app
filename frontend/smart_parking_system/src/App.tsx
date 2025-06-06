@@ -13,6 +13,7 @@ import BasicUserProtectedRoute from "./components/BasicUser/BasicUserProtectedRo
 import UserManagementList from "./components/UserManagement/UserManagemetList";
 import BasicUserNavbar from "./components/BasicUser/BasicUserNavbar";
 import UserProfile from "./components/UserManagement/UserProfile";
+import BasicUserParkingReservation from "./components/BasicUser/BasicUserParkingReservation";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           >
             <Route path="user-profile" element={<UserProfile/>}/>
             <Route path="dashboard" element={<BasicUserDashboard />} />
+            <Route path="reservation" element={<BasicUserParkingReservation />} />
           </Route>
             {/* End -- Client user Routes */}
         </Routes>

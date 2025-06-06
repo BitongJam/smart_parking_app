@@ -9,7 +9,6 @@ function BasicUserDashboard(){
         </div>
         <BasicUserNotification/>
 
-        <BasicUserParkingReservation/>
     </>
 }   
 
