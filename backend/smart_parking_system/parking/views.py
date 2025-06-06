@@ -56,7 +56,7 @@ class ParkingResevationViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods =['get'])
     def user_active_reservations(self,request):
         user = request.user
-        reservations = self.queryset.filter(user_id = user.id, state="active")
+        reservations = self.queryset.filter(user_id = user.id, state__in = ["active","draft"])
         serializer = self.get_serializer(reservations,many=True)
         return Response(serializer.data)
     
