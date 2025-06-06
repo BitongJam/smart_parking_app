@@ -39,7 +39,9 @@ function ParkingLocationList() {
   return (
     <>
       <h2>Parking Location</h2>
-
+      <a href="/parking-location/create" className="btn btn-primary btn-sm">
+        Create Parking Location
+      </a>
       <table className="table mt-2 table-sm">
         <thead>
           <tr>
