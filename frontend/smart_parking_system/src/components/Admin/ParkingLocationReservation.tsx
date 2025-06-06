@@ -267,7 +267,25 @@ function ParkingLocationLotForm() {
                 <td>{loc.name}</td>
                 <td>{loc.start_datetime}</td>
                 <td>{loc.end_datetime}</td>
-                <td>{loc.state}</td>
+                <td>
+                      {loc.state == "active" ? (
+                        <span className="badge rounded-pill bg-success">
+                          {loc.state}
+                        </span>
+                      ) : loc.state == "cancel" ? (
+                        <span className="badge rounded-pill bg-danger">
+                          {loc.state}
+                        </span>
+                      ) : loc.state == "draft" ? (
+                        <span className="badge rounded-pill bg-info">
+                          {loc.state}
+                        </span>
+                      ) : (
+                        <span className="badge rounded-pill bg-secondary">
+                          {loc.state}
+                        </span>
+                      )}
+                    </td>
                 <td>
                   {loc.state === "draft" && (
                     <button
