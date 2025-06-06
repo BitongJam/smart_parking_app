@@ -59,6 +59,7 @@ function AdminParkingReservation() {
       );
 
       console.info("Reservation Cancel");
+      window.location.reload();
       // When Successfully Delete auto navigate to the parking location list
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
