@@ -17,8 +17,8 @@ This project enables users to:
 ## 🛠 Tech Stack
 
 **Frontend:**
-- React.js (TypeScript)
-- Bootstrap 5
+- React.js
+- Tailwindcss
 
 **Backend:**
 - Django REST Framework
