@@ -9,7 +9,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','username','name','birthdate','email','active','is_admin']
+        fields = ['id','username','name','birthdate','email','is_active','is_admin']
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -48,7 +48,7 @@ class ModifiedTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
 
-        if not self.user.active:
+        if not self.user.is_active:
             raise serializers.ValidationError('User account is Deactivated.')
 
         return data

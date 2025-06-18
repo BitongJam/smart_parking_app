@@ -4,8 +4,6 @@ from django.conf import settings
 
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
-    active = models.BooleanField(default=True)
-
 
 # Create your models here.
 class UserProfile(models.Model):

@@ -74,15 +74,15 @@ def create_admin_user(request):
 def update_active_user(request,user_id):
     #Function for deactivating or re active users
     user = User.objects.get(id=user_id)
-    activate_value = request.data.get("active")
+    activate_value = request.data.get("is_active")
 
     if not user:
         return Response({'error': 'User ID is required'}, status=400)
     
-    user.active = activate_value
+    user.is_active = activate_value
     user.save()
 
-    return Response({'message': f'User {user.username} deactivated {user.active} successfully'}, status=200)
+    return Response({'message': f'User {user.username} deactivated {user.is_active} successfully'}, status=200)
 
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
