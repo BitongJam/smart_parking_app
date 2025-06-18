@@ -88,6 +88,47 @@ def update_user_password(request,user_id):
     user.save()
     return Response({'message': f'User {user.username} Details Updated Successfully'}, status=200)
 
+@api_view(['POST'])
+def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = authenticate(username=username, password=password)
+    if user is None:
+        return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    # Generate tokens
+    refresh = RefreshToken.for_user(user)
+    access_token = str(refresh.access_token)
+
+    # Prepare response
+    response = Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+
+    # Set cookies (HttpOnly)
+    response.set_cookie(
+        key='access',
+        value=access_token,
+        httponly=True,
+        secure=False,  # Set to True in production
+        samesite='Lax',
+        max_age=300  # 5 minutes
+    )
+    response.set_cookie(
+        key='refresh',
+        value=str(refresh),
+        httponly=True,
+        secure=False,
+        samesite='Lax',
+        max_age=86400  # 1 day
+    )
+
+    return response
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    serializer = UserListSerializer(request.user)
+    return Response(serializer.data)
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import ModifiedTokenObtainPairSerializer
