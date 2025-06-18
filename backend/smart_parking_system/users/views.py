@@ -31,7 +31,13 @@ def get_list_users(request):
 
 @api_view(['POST'])
 def create_user(request):
-    serializer = UserCreateSerializer(data=request.data)
+    data = request.data.copy()
+    
+    # Force is_staff and is_superuser as False
+    data['is_staff'] = False
+    data['is_superuser'] = False
+
+    serializer = UserCreateSerializer(data=data)
     if serializer.is_valid():
         try:
             serializer.save()
@@ -41,6 +47,26 @@ def create_user(request):
         except Exception as e:
             return Response({'error': str(e)}, status=500)
     return Response(serializer.errors, status=400)
+
+@api_view(['POST'])
+def create_admin_user(request):
+        data = request.data.copy()
+    
+        # Force is_staff and is_superuser as False
+        data['is_staff'] = True
+        data['is_superuser'] = True
+        data['is_admin'] = True
+        
+        serializer = UserCreateSerializer(data=data)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+                return Response({'message': 'User created successfully'}, status=201)
+            except IntegrityError as e:
+                return Response({'error':str(e)},status=409)
+            except Exception as e:
+                return Response({'error': str(e)}, status=500)
+        return Response(serializer.errors, status=400)
 
 
 @api_view(['PATCH'])
